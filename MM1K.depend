@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1628824772 source:d:\user\desktop\mm1k\mm1k\main.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	"lcgrand.h"
+
+1627869693 d:\user\desktop\mm1k\mm1k\lcgrand.h
+
