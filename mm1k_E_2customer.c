@@ -6,16 +6,16 @@
 #define Idle 0
 #define Busy 1
 
-void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *E_Area_Under_Q, int *C_Num_In_Queue, int *E_Num_In_Queue, int *Server_Status, double *C_qDelay, double *E_qDelay, double *C_Time_Arrival,
+void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *E_Area_Under_Q, double *C_Area_Under_System, double *E_Area_Under_System, int *C_Num_In_Queue, int *E_Num_In_Queue, int *Server_Status, double *C_qDelay, double *E_qDelay, double *C_Time_Arrival,
 	double *E_Time_Arrival, double *C_Total_qDelay, double *E_Total_qDelay, int *Num_Custs_Delayed, float *C1_mean_service_time, float *C2_mean_service_time, double *C_sys_delay, double *E_sys_delay, double *C_total_sys_delay, double *E_total_sys_delay, int *C_Arrival_Type);
 
-void C1_arrival(double *Sim_Time, double *C1_next_arr_time, float *C1_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
+void C1_arrival(double *Sim_Time, double *C1_next_arr_time, float *C1_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *C_Area_Under_System, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
 	int *C_Q_limit, double *next_dept_time, float *C1_mean_service_time, double *C_Time_Arrival, int *Num_Custs_Delayed, double *num_of_C_full, double *E_Time_Arrival, int *C_Arrival_Type, double *E_Total_qDelay, double *E_qDelay);
 
-void C2_arrival(double *Sim_Time, double *C2_next_arr_time, float *C2_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
+void C2_arrival(double *Sim_Time, double *C2_next_arr_time, float *C2_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *C_Area_Under_System, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
 	int *C_Q_limit, double *next_dept_time, float *mean_service_time, double *C_Time_Arrival, int *Num_Custs_Delayed, double *num_of_C_full, double *E_Time_Arrival, int *C_Arrival_Type, double *E_Total_qDelay, double *E_qDelay);
 
-void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *E_Area_Under_Q, int *E_Num_In_Queue, int *Server_Status, int *C_Num_In_Queue,
+void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *E_Area_Under_Q, double *E_Area_Under_System, int *E_Num_In_Queue, int *Server_Status, int *C_Num_In_Queue,
 	int *E_Q_limit, double *next_dept_time, float *mean_service_time, double *E_Time_Arrival, int *Num_Custs_Delayed, double*num_of_E_full, double *C_Time_Arrival, int *C_Arrival_Type, double *C_Total_qDelay, double *C_qDelay,float *C1_mean_service_time, float *C2_mean_service_time);
 
 
@@ -39,6 +39,9 @@ int main()
 
 	float C_avg_num_in_queue = 0;
 	float E_avg_num_in_queue = 0;
+
+	float C_avg_num_in_system = 0;
+	float E_avg_num_in_system = 0;
 
 	float C1_mean_interarrival_time = 0;
 	float C2_mean_interarrival_time = 0;
@@ -65,6 +68,9 @@ int main()
 
 	double C_Area_Under_Q = 0;
 	double E_Area_Under_Q = 0;
+
+	double C_Area_Under_System = 0;
+	double E_Area_Under_System = 0;
 
 	double Last_Event_Time = 0;
 
@@ -158,7 +164,7 @@ int main()
 		//	printf("D  ");
 			
 			
-			depature(&Sim_Time, &next_dept_time, &Time_since_Last_Event, &Last_Event_Time, &C_Area_Under_Q, &E_Area_Under_Q, &C_Num_In_Queue, &E_Num_In_Queue, &Server_Status, &C_qDelay, &E_qDelay, C_Time_Arrival,
+			depature(&Sim_Time, &next_dept_time, &Time_since_Last_Event, &Last_Event_Time, &C_Area_Under_Q, &E_Area_Under_Q, &C_Area_Under_System, &E_Area_Under_System, &C_Num_In_Queue, &E_Num_In_Queue, &Server_Status, &C_qDelay, &E_qDelay, C_Time_Arrival,
 				E_Time_Arrival, &C_Total_qDelay, &E_Total_qDelay, &Num_Custs_Delayed, &C1_mean_service_time, &C2_mean_service_time, &C_sys_delay, &E_sys_delay, &C_total_sys_delay, &E_total_sys_delay, C_Arrival_Type);
 
 		}
@@ -166,7 +172,7 @@ int main()
 		//	printf("C1 ");
 			
 			
-			C1_arrival(&Sim_Time, &C1_next_arr_time, &C1_mean_interarrival_time, &Time_since_Last_Event, &Last_Event_Time, &C_Area_Under_Q, &C_Num_In_Queue, &Server_Status, &E_Num_In_Queue,
+			C1_arrival(&Sim_Time, &C1_next_arr_time, &C1_mean_interarrival_time, &Time_since_Last_Event, &Last_Event_Time, &C_Area_Under_Q, &C_Area_Under_System, &C_Num_In_Queue, &Server_Status, &E_Num_In_Queue,
 				&C_Q_limit, &next_dept_time, &C1_mean_service_time, C_Time_Arrival, &Num_Custs_Delayed, &num_of_C_full, E_Time_Arrival, C_Arrival_Type, &E_Total_qDelay, &E_qDelay);
 			num_of_C_arr++;
 		}
@@ -175,7 +181,7 @@ int main()
 			//printf("C2 ");
 			
 			
-			C2_arrival(&Sim_Time, &C2_next_arr_time, &C2_mean_interarrival_time, &Time_since_Last_Event, &Last_Event_Time, &C_Area_Under_Q, &C_Num_In_Queue, &Server_Status, &E_Num_In_Queue,
+			C2_arrival(&Sim_Time, &C2_next_arr_time, &C2_mean_interarrival_time, &Time_since_Last_Event, &Last_Event_Time, &C_Area_Under_Q, &C_Area_Under_System, &C_Num_In_Queue, &Server_Status, &E_Num_In_Queue,
 				&C_Q_limit, &next_dept_time, &C2_mean_service_time, C_Time_Arrival, &Num_Custs_Delayed, &num_of_C_full, E_Time_Arrival, C_Arrival_Type, &E_Total_qDelay, &E_qDelay);
 			num_of_C_arr++;
 		}
@@ -184,7 +190,7 @@ int main()
 		//	printf("E  ");
 			
 	
-			E_arrival(&Sim_Time, &E_next_arr_time, &E_mean_interarrival_time, &Time_since_Last_Event, &Last_Event_Time, &E_Area_Under_Q, &E_Num_In_Queue, &Server_Status, &C_Num_In_Queue,
+			E_arrival(&Sim_Time, &E_next_arr_time, &E_mean_interarrival_time, &Time_since_Last_Event, &Last_Event_Time, &E_Area_Under_Q, &E_Area_Under_System, &E_Num_In_Queue, &Server_Status, &C_Num_In_Queue,
 				&E_Q_limit, &next_dept_time, &mean_service_time, E_Time_Arrival, &Num_Custs_Delayed, &num_of_E_full, C_Time_Arrival, C_Arrival_Type, &C_Total_qDelay, &C_qDelay,&C1_mean_service_time, &C2_mean_service_time);
             
 			num_of_E_arr++;
@@ -296,6 +302,11 @@ int main()
 	E_avg_sys_delay = E_total_sys_delay / Num_Custs_Delayed;
 	printf("E_avg_system_delay= %.8f \n", E_avg_sys_delay);
 
+	C_avg_num_in_system = C_Area_Under_System / Sim_Time;
+	printf("C_avg_num_in_queue = %.8f \n", C_avg_num_in_queue);
+	E_avg_num_in_system = E_Area_Under_System / Sim_Time;
+	printf("E_avg_num_in_queue = %.8f \n", E_avg_num_in_queue);
+
 	C_Pk = num_of_C_full / num_of_C_arr;
 	printf("C_Pk = %f \n", C_Pk);
 	E_Pk = num_of_E_full / num_of_E_arr;
@@ -306,7 +317,7 @@ int main()
 	return 0;
 }
 
-void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *E_Area_Under_Q, int *C_Num_In_Queue, int *E_Num_In_Queue, int *Server_Status, double *C_qDelay, double *E_qDelay, double *C_Time_Arrival,
+void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *E_Area_Under_Q, double *C_Area_Under_System, double *E_Area_Under_System, int *C_Num_In_Queue, int *E_Num_In_Queue, int *Server_Status, double *C_qDelay, double *E_qDelay, double *C_Time_Arrival,
 	double *E_Time_Arrival, double *C_Total_qDelay, double *E_Total_qDelay, int *Num_Custs_Delayed, float *C1_mean_service_time, float *C2_mean_service_time, double *C_sys_delay, double *E_sys_delay, double *C_total_sys_delay, double *E_total_sys_delay, int *C_Arrival_Type) {
 
 	*Sim_Time = *next_dept_time;
@@ -316,6 +327,15 @@ void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_
 	*C_Area_Under_Q += (*C_Num_In_Queue) * (*Time_since_Last_Event);
 	*E_Area_Under_Q += (*E_Num_In_Queue) * (*Time_since_Last_Event);
 
+	
+
+	if(*Server_Status == Idle){
+    	*C_Area_Under_System += (*C_Num_In_Queue) * (*Time_since_Last_Event);
+		*E_Area_Under_System += (*E_Num_In_Queue) * (*Time_since_Last_Event);
+	}else{
+    	*C_Area_Under_System += (*C_Num_In_Queue + 1) * (*Time_since_Last_Event);
+		*E_Area_Under_System += (*E_Num_In_Queue + 1) * (*Time_since_Last_Event);
+	}
 
 	if (*C_Num_In_Queue == 0) {
 		*Server_Status = Idle;
@@ -386,7 +406,7 @@ void depature(double *Sim_Time, double *next_dept_time, double *Time_since_Last_
 	}
 }
 
-void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *E_Area_Under_Q, int *E_Num_In_Queue, int *Server_Status, int *C_Num_In_Queue,
+void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *E_Area_Under_Q, double *E_Area_Under_System, int *E_Num_In_Queue, int *Server_Status, int *C_Num_In_Queue,
 	int *E_Q_limit, double *next_dept_time, float *mean_service_time, double *E_Time_Arrival, int *Num_Custs_Delayed, double*num_of_E_full, double *C_Time_Arrival, int *C_Arrival_Type, double *C_Total_qDelay, double *C_qDelay,float *C1_mean_service_time, float *C2_mean_service_time) {
 
 	*Sim_Time = *E_next_arr_time;
@@ -394,6 +414,12 @@ void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarr
 	*Time_since_Last_Event = *Sim_Time - *Last_Event_Time;
 	*Last_Event_Time = *Sim_Time;
 	*E_Area_Under_Q += (*E_Num_In_Queue) * (*Time_since_Last_Event);
+
+	if(*Server_Status == Idle){
+		*E_Area_Under_System += (*E_Num_In_Queue) * (*Time_since_Last_Event);
+	}else{
+		*E_Area_Under_System += (*E_Num_In_Queue + 1) * (*Time_since_Last_Event);
+	}
 
 	if (*Server_Status == Idle) {
 		if (*C_Num_In_Queue != 0) 
@@ -468,7 +494,7 @@ void E_arrival(double *Sim_Time, double *E_next_arr_time, float *E_mean_interarr
 
 
 
-void C1_arrival(double *Sim_Time, double *C1_next_arr_time, float *C1_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
+void C1_arrival(double *Sim_Time, double *C1_next_arr_time, float *C1_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *C_Area_Under_System, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
 	int *C_Q_limit, double *next_dept_time, float *C1_mean_service_time, double *C_Time_Arrival, int *Num_Custs_Delayed, double *num_of_C_full, double *E_Time_Arrival, int *C_Arrival_Type, double *E_Total_qDelay, double *E_qDelay) {
 
 	*Sim_Time = *C1_next_arr_time;
@@ -476,6 +502,11 @@ void C1_arrival(double *Sim_Time, double *C1_next_arr_time, float *C1_mean_inter
 	*Time_since_Last_Event = *Sim_Time - *Last_Event_Time;
 	*Last_Event_Time = *Sim_Time;
 	*C_Area_Under_Q += (*C_Num_In_Queue) * (*Time_since_Last_Event);
+	if(*Server_Status == Idle){
+    	*C_Area_Under_System += (*C_Num_In_Queue) * (*Time_since_Last_Event);
+	}else{
+    	*C_Area_Under_System += (*C_Num_In_Queue + 1) * (*Time_since_Last_Event);
+	}
 
 	if (*Server_Status == Idle) {
 		if (*E_Num_In_Queue != 0) {
@@ -529,7 +560,7 @@ void C1_arrival(double *Sim_Time, double *C1_next_arr_time, float *C1_mean_inter
 	}
 }
 
-void C2_arrival(double *Sim_Time, double *C2_next_arr_time, float *C2_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
+void C2_arrival(double *Sim_Time, double *C2_next_arr_time, float *C2_mean_interarrival_time, double *Time_since_Last_Event, double *Last_Event_Time, double *C_Area_Under_Q, double *C_Area_Under_System, int *C_Num_In_Queue, int *Server_Status, int *E_Num_In_Queue,
 	int *C_Q_limit, double *next_dept_time, float *C2_mean_service_time, double *C_Time_Arrival, int *Num_Custs_Delayed, double *num_of_C_full, double *E_Time_Arrival, int *C_Arrival_Type, double *E_Total_qDelay, double *E_qDelay) {
 
 	*Sim_Time = *C2_next_arr_time;
@@ -537,6 +568,11 @@ void C2_arrival(double *Sim_Time, double *C2_next_arr_time, float *C2_mean_inter
 	*Time_since_Last_Event = *Sim_Time - *Last_Event_Time;
 	*Last_Event_Time = *Sim_Time;
 	*C_Area_Under_Q += (*C_Num_In_Queue) * (*Time_since_Last_Event);
+	if(*Server_Status == Idle){
+    	*C_Area_Under_System += (*C_Num_In_Queue) * (*Time_since_Last_Event);
+	}else{
+    	*C_Area_Under_System += (*C_Num_In_Queue + 1) * (*Time_since_Last_Event);
+	}
 
 	if (*Server_Status == Idle) {
 		if (*E_Num_In_Queue != 0) {
